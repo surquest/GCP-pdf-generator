@@ -1,0 +1,9 @@
+{
+    "solution": {
+        "name": "PDF Generator",
+        "desc": "REST API service to generate PDF files based on templates and input data",
+        "slug": "pdfg",
+        "version": "0.0.1"
+    }
+
+}

@@ -1,0 +1,17 @@
+{
+    "storage": {
+        "buckets": {
+            "assets": "${solution.slug}--assets--${GCP.env}"
+        }
+    },
+    "IAM": {
+        "serviceAccounts": {
+            "app": "${solution.slug}--pdf-generator--${GCP.env}"
+        }
+    },
+    "run": {
+        "services": {
+            "pdfGenerator": "${solution.slug}--pdf-generator--${GCP.env}"
+        }
+    }
+}

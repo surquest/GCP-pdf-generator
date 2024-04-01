@@ -1,0 +1,58 @@
+{
+    "services": {
+        "IAM": {
+            "serviceAccounts": {
+                "app": {
+                    "name": "PDF Generator",
+                    "desc": "Service Account for PDF Generator",
+                    "roles": [
+                        "roles/logging.logWriter",
+                        "roles/cloudtrace.agent"
+                    ]
+                }
+            }
+        },
+        "run": {
+            "services": {
+                "pdfGenerator": {
+                    "container": {
+                        "image": "docker.io/carbone/carbone-ee",
+                        "ports": {
+                            "containerPort": "4000"
+
+                        }
+                    },
+                    "serviceAccount": "app"
+                }
+            }
+        },
+        "storage": {
+            "buckets": {
+                "assets": {
+                    "desc": "Repository of templates used for PDF generation",
+                    "access": [
+                        {
+                            "role": "roles/storage.objectAdmin",
+                            "type": "serviceAccount",
+                            "key": "app"
+                        },
+                        {
+                            "role": "roles/storage.objectAdmin",
+                            "type": "group",
+                            "email": "analysts@reality.co"
+                        }
+                    ],
+                    "lifecycle": {
+                        "action": {
+                            "type":"SetStorageClass",
+                            "storageClass":"COLDLINE"
+                        },
+                        "condition": {
+                            "age": 1095
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
