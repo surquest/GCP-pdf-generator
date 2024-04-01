@@ -1,6 +1,7 @@
 {
     "solution": {
         "name": "PDF Generator",
+        "code": "pdf-generator",
         "desc": "REST API service to generate PDF files based on templates and input data",
         "slug": "pdfg",
         "version": "0.0.1"

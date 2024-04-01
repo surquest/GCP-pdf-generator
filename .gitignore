@@ -1,3 +1,9 @@
+# Secrets and credentials
+credentials/*/*.json
+
+# Terraform
+iac/GCP/.terraform
+.terraform.lock.hcl
+
+# VSCode
 .vscode
-credentials
-container

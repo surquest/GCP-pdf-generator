@@ -1,17 +1,18 @@
 {
     "storage": {
         "buckets": {
-            "assets": "${solution.slug}--assets--${GCP.env}"
+            "templates": "${GCP.env}--${solution.slug}--pdf-templates",
+            "renders": "${GCP.env}--${solution.slug}--pdf-renders"
         }
     },
     "IAM": {
         "serviceAccounts": {
-            "app": "${solution.slug}--pdf-generator--${GCP.env}"
+            "app": "${GCP.env}--${solution.slug}--pdf-generator"
         }
     },
     "run": {
         "services": {
-            "pdfGenerator": "${solution.slug}--pdf-generator--${GCP.env}"
+            "pdfGenerator": "${GCP.env}--${solution.slug}--pdf-generator"
         }
     }
 }

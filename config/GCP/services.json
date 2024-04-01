@@ -28,7 +28,7 @@
         },
         "storage": {
             "buckets": {
-                "assets": {
+                "templates": {
                     "desc": "Repository of templates used for PDF generation",
                     "access": [
                         {
@@ -49,6 +49,30 @@
                         },
                         "condition": {
                             "age": 1095
+                        }
+                    }
+                },
+                "renders": {
+                    "desc": "Repository of PDF renders created by PDF generation",
+                    "access": [
+                        {
+                            "role": "roles/storage.objectAdmin",
+                            "type": "serviceAccount",
+                            "key": "app"
+                        },
+                        {
+                            "role": "roles/storage.objectAdmin",
+                            "type": "group",
+                            "email": "analysts@reality.co"
+                        }
+                    ],
+                    "lifecycle": {
+                        "action": {
+                            "type":"SetStorageClass",
+                            "storageClass":"COLDLINE"
+                        },
+                        "condition": {
+                            "age": 30
                         }
                     }
                 }

@@ -6,6 +6,6 @@
         "location": "US",
         "region": "us-central1",
         "zone": "us-central1-b",
-        "env": "dev"    
+        "env": "prod"    
     }
 }

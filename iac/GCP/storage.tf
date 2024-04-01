@@ -68,4 +68,5 @@ resource "google_storage_bucket_iam_member" "bucket_iam_binding" {
   bucket = google_storage_bucket.buckets[each.value.bucketKey].name
   role   = each.value.role
   member = each.value.email != null ? "${each.value.type}:${each.value.email}" : "${each.value.type}:${google_service_account.accounts[each.value.key].email}"
+
 }

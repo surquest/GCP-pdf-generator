@@ -1,32 +1,43 @@
-## Introduction
+# Introduction
 
-The PDF Generator API is a service that allows you to generate PDF documents by providing input data and selecting a template. 
+This project outlines how to run On-Premise Docker Edition of https://github.com/carboneio/carbone on Google Cloud Platform (GCP) on Cloud Run service with persistent storage using Cloud Storage bucket to store permanently templates for PDF generation.
 
-### Getting Started
+Google Cloud Platform services are managed by Terraform scripts to automate the infrastructure provisioning and configuration.
 
-The PDF Generator REST APIs is fully containerized application and can be run using docker-compose. To get started with the PDF Generator API, follow these steps:
+## Why Carbone on GCP?
 
+The Carbone project is a powerful tool for generating PDFs from templates from various sources like Word, Excel, or HTML. This flexibility allows you to create complex PDFs with dynamic content and layout easily even without a knowledge of HTML and CSS. The GCP Cloud Run service is a fully managed platform that allows you to run stateless containers that are invocable via HTTP requests. This combination allows you to create a scalable and cost-effective solution for generating PDFs from templates.
 
-1. Clone the repository:
+All the credits for the Carbone project go to the original authors https://github.com/carboneio/carbone.
 
-    ```bash
-    git clone git@github.com:surquest/python-pdf-generator.git
-    ```
+## Getting Started
 
-2. 
-2. Install the dependencies:
+Before you start deploying the PDF Generator API to GCP, you need to have the following prerequisites:
 
-    ```bash
-    npm install
-    ```
+1. Adjust the configuration for GCP projects in files:
 
-3. Start the server:
+    - `config/GCP/project.env.PROD.json`
+    - `config/GCP/project.env.DEV.json` - support for separating production and development environments
 
-    ```bash
-    npm start
-    ```
+2. Adjust the terraform backend configuration in the `iac/terraform.tf` file.
 
-4. The API will be accessible at `http://localhost:3000`.
+    - `iac/GCP/backend.PROD.conf` 
+    - `iac/GCP/backend.DEV.conf` - support for separating production and development environments
+
+3. Having the Docker installed on your local machine (https://docs.docker.com/get-docker/) - is used for running the terraform scripts in the container.
+
+4. Add the service account key file for the GCP project to the `credentials` directory.
+
+    - `credentials/PROD/deployer.keyfile.json`
+    - `credentials/DEV/deployer.keyfile.json` - support for separating production and development environments
+
+    The service account needs to hav these permissions:
+
+    - `roles/storage.admin` - to create and manage Cloud Storage buckets for templates and rendered PDFs
+    - `roles/iam.serviceAccountAdmin` - to create and manage service account for Cloud Run service
+    - `roles/run.admin` - to create and manage Cloud Run service
+
+Once all the prerequisites are met, you can use powershell scripts `action.run.ps1` to deploy the infrastructure and the PDF Generator API to GCP.
 
 ### Repository Structure
 
@@ -34,35 +45,37 @@ The repository has the following structure:
 
 ```
 ├── config 
-│   ├── solution.json               # Solution configuration
-│   ├── naming.patterns.json        # Naming patterns for resources used on Google Cloud Platform
-│   └── GCP                         # Google Cloud Platform configuration
-│       ├── project.env.PROD.json   # GCP project information as id, name, number, region
-│       └── service.json            # Collection of configurations for GCP services
-├── src                             # Source code of the REST API application
-├── iac                             # Infrastructure as Code (terraform scripts)
+│   ├── solution.json                       # Solution configuration
+│   ├── naming.patterns.json                # Naming patterns for resources used on Google Cloud Platform
+│   └── GCP                                 # Google Cloud Platform configuration
+│       ├── project.PROD.json               # GCP project information as id, name, number, region for PROD environment
+│       ├── project.DEV.json                # GCP project information as id, name, number, region for DEV environment
+│       └── service.json                    # Collection of configurations for GCP services
+├── iac                                     # Infrastructure as Code (terraform scripts)
+│   └── GCP                                 # Google Cloud Platform configuration
+│       ├── backend.PROD.conf               # Terraform backend configuration for PROD environment
+│       ├── backend.DEV.conf                # Terraform backend configuration for DEV environment
+│       ├── main.tf                         # Main Terraform script
+│       ├── iam.tf                          # Service account and IAM roles configuration
+│       ├── storage.tf                      # Cloud Storage bucket configuration
+│       ├── run.tf                          # Cloud Run service configuration
+│       ├── var.cloud.google.env.tf         # Variables for GCP environment
+│       └── var.cloud.google.services.tf    # Variables for GCP project
+├── templates                               # Templates for PDF generation
+│   └── proposal.docx                       # Example template for PDF generation
+├── credentials                             # Service account key files
+│   ├── PROD
+│   │   └── deployer.keyfile.json           # TO BE CREATED for your GCP project
+│   └── DEV
+│       └── deployer.keyfile.json           # TO BE CREATED for your GCP project
+└── action.run.ps1                          # Powershell script for deploying the infrastructure and the PDF Generator API to GCP
 ```
-
-### Deployment
-
-To deploy the PDF Generator API to a production environment, follow these steps:
-
-1. Configure the necessary environment variables.
-2. Build the project using the appropriate build command.
-3. Deploy the built project to your desired hosting platform.
-
-## Documentation
-
-For detailed documentation on how to use the PDF Generator API, refer to the [API Documentation](https://your-api-documentation-url).
 
 ## Support
 
-If you have any questions or need support, please contact our support team at support@example.com.
+If you have any questions or need support, feel free to contact me at michal.svarc@surquest.com.
 
-## License
+## References
 
-The PDF Generator API is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
-
-https://carbone.io/on-premise.html
-https://github.com/carboneio/carbone
+* Carbone project: https://carbone.io
+* Carbone Github: https://github.com/carboneio/carbone

@@ -26,21 +26,36 @@ resource "google_cloud_run_v2_service" "services" {
         containers {
             image = each.value.container.image
             volume_mounts {
-                name       = "gcsAssets"
+                name       = "assetTemplate"
                 mount_path = "/app/template"
             }
+            # This part would persist the rendered PDFs (negative impact on PDF generation time)
+            # volume_mounts {
+            #     name       = "assetRender"
+            #     mount_path = "/app/render"
+            # }
             ports {
                 container_port = each.value.container.ports.containerPort
             }
         }
         
         volumes {
-            name = "gcsAssets"  # must match volume_mounts.name
+            name = "assetTemplate"  # must match volume_mounts.name
             gcs {
-                bucket = google_storage_bucket.buckets["assets"].name
+                bucket = google_storage_bucket.buckets["templates"].name
                 read_only = false
             }
         }
+
+        # This part would persist the rendered PDFs (negative impact on PDF generation time)
+        # 
+        # volumes {
+        #     name = "assetRender"  # must match volume_mounts.name
+        #     gcs {
+        #         bucket = google_storage_bucket.buckets["renders"].name
+        #         read_only = false
+        #     }
+        # }
 
         labels = {
             solution = var.solution.slug
