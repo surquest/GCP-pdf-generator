@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Printable Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            padding: 20mm;
+            font-family: Arial, sans-serif;
+        }
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; background-color: #f2f2f2; padding: 10px; border-bottom-right-radius: 10px;">
+        <h1 style="margin: 0; border-bottom-right-radius: 10px;">Title</h1>
+    </div>
+    <div style="display: flex;">
+        <div style="flex: 2;">
+            <!-- Content for the first column -->
+            <table>
+                <tr>
+                    <td>Row 1, Column 1</td>
+                    <td>Row 1, Column 2</td>
+                </tr>
+                <tr>
+                    <td>Row 2, Column 1</td>
+                    <td>Row 2, Column 2</td>
+                </tr>
+                <tr>
+                    <td>Row 3, Column 1</td>
+                    <td>Row 3, Column 2</td>
+                </tr>
+                <tr>
+                    <td>Row 4, Column 1</td>
+                    <td>Row 4, Column 2</td>
+                </tr>
+            </table>
+        </div>
+        <div style="flex: 1;">
+            <table>
+                <tr>
+                    <th>Column 3</th>
+                </tr>
+                <tr>
+                    <td>Row 1, Column 3</td>
+                </tr>
+                <tr>
+                    <td>Row 2, Column 3</td>
+                </tr>
+                <tr>
+                    <td>Row 3, Column 3</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Column 4</th>
+                </tr>
+                <tr>
+                    <td>Row 1, Column 4</td>
+                </tr>
+                <tr>
+                    <td>Row 2, Column 4</td>
+                </tr>
+                <tr>
+                    <td>Row 3, Column 4</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
