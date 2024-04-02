@@ -1,0 +1,69 @@
+{
+    "c": {
+        "name": "Six Nations Championship",
+        "start": "2024-01-01",
+        "end": "2024-01-31",
+        "objectives": [
+            "Sales"
+        ],
+        "brands": [
+            "Coca-Cola"
+        ],
+        "contact": {
+            "name": "Michal Švarc",
+            "email": "michal.svarc@dunnhumby.com"
+        },
+        "fee": {
+            "amount": 17500,
+            "currency": "GBP"
+        },
+        "a": [
+            {
+                "ch": "Point-of-Sales",
+                "el": [
+                    {
+                        "name": "Shelf Talker",
+                        "location": "Soft Drinks",
+                        "units": 2,
+                        "fee": {
+                            "amount": 2500,
+                            "currency": "GBP"
+                        }
+                    },
+                    {
+                        "name": "Floor Graphic",
+                        "location": "Soft Drinks",
+                        "units": 1,
+                        "fee": {
+                            "amount": 5000,
+                            "currency": "GBP"
+                        }
+                    },
+                    {
+                        "name": "Aisle Gate",
+                        "location": "Soft Drinks",
+                        "units": 2,
+                        "fee": {
+                            "amount": 10000,
+                            "currency": "GBP"
+                        }
+                    }
+                ]
+            },
+            {
+                "ch": "Magazine",
+                "el": [
+                    {
+                        "name": "Front Page banner",
+                        "location": "Front Page",
+                        "units": 1,
+                        "fee": {
+                            "amount": 4500,
+                            "currency": "GBP"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
