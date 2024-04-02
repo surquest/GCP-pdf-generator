@@ -21,6 +21,14 @@ variable "services" {
           })
         })
         serviceAccount = string
+        access = list(
+            object({
+              role  = string
+              type  = string
+              key = optional(string)
+              email = optional(string)
+            })
+          )
       })) 
     })
 

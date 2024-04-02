@@ -64,3 +64,38 @@ resource "google_cloud_run_v2_service" "services" {
     
     }
 }
+
+# Summarize map of Cloud Run services and access
+locals{
+    run_service_access = {
+        for runKey, runVal in flatten([
+            for key, value in var.services.run.services: [
+                for item in value.access: {
+                    idx             = "${key}.${item.role}.${item.type}.${item.key == null ? "-" : item.key}.${item.email == null ? "-" : item.email}"
+                    serviceKey      = key
+                    role            = item.role
+                    type            = item.type
+                    key             = item.key
+                    email           = item.email
+                }
+            ]
+        ]): runVal.idx => {
+            serviceKey = runVal.serviceKey
+            role = runVal.role
+            type = runVal.type
+            key = runVal.key
+            email = runVal.email
+            member = runVal.email != null ? "${runVal.type}:${runVal.email}" : "${runVal.type}:${google_service_account.accounts[runVal.key].email}"
+        }
+    }
+}
+
+# Set Cloud Run service access
+resource "google_cloud_run_service_iam_member" "service_iam_binding" {
+
+    for_each = local.run_service_access
+
+    service = google_cloud_run_v2_service.services[each.value.serviceKey].name
+    role    = each.value.role
+    member  = each.value.member
+}

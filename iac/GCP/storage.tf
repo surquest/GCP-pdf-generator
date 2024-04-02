@@ -56,6 +56,7 @@ locals {
       type = storageVal.type
       key = storageVal.key
       email = storageVal.email
+      member = storageVal.email != null ? "${storageVal.type}:${storageVal.email}" : "${storageVal.type}:${google_service_account.accounts[storageVal.key].email}"
     }
   }
 }
@@ -67,6 +68,5 @@ resource "google_storage_bucket_iam_member" "bucket_iam_binding" {
 
   bucket = google_storage_bucket.buckets[each.value.bucketKey].name
   role   = each.value.role
-  member = each.value.email != null ? "${each.value.type}:${each.value.email}" : "${each.value.type}:${google_service_account.accounts[each.value.key].email}"
-
+  member = each.value.member
 }

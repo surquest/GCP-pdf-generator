@@ -22,7 +22,14 @@
 
                         }
                     },
-                    "serviceAccount": "app"
+                    "serviceAccount": "app",
+                    "access": [
+                        {
+                            "role": "roles/run.invoker",
+                            "type": "serviceAccount",
+                            "key": "app"
+                        }
+                    ]
                 }
             }
         },
